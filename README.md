@@ -1,3 +1,3 @@
 # meander-api
 
-Wrapper for Unsplash Authorization Requests for the Meander App
+Wrapper for Unsplash API Requests for the Meander App when Client-ID or Client-Secret are needed.

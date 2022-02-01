@@ -42,6 +42,24 @@ app.post("/oauth/token", async (req, res) => {
 	}
 })
 
+app.get("/search/photos", async (req, res) => {
+	const { query: queryParams } = req;
+	const { authorization: authHeader } = req.headers;
+
+	try {
+		const response = await axios.get("https://api.unsplash.com/search/photos", {
+			params: queryParams,
+			headers: {
+				Authorization: (authHeader === 'Client-ID' ? `Client-ID ${process.env.UNSPLASH_CLIENT_ID}`: authHeader)
+			}
+		});
+		res.status(response.status).json(response.data);
+	} catch (err) {
+		console.log(err);
+		res.status(err.response.status).json(err.response.data);
+	}
+})
+
 var port = process.env.PORT || 3001;
 app.listen(port, () => {
 	console.log(`Meander API Server online on port ${port} - ` + new Date());
